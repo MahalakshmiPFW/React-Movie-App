@@ -16,6 +16,7 @@ const API_OPTIONS = {
   }
 }
 
+
 const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
   
@@ -23,7 +24,7 @@ const App = () => {
 
   const fetchMovies = async () => {
     try {
-      const endpoint = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+      const endpoint = `${API_BASE_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`;
       
       const response = await fetch(endpoint, API_OPTIONS);
 
