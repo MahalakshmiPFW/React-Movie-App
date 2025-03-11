@@ -3,6 +3,7 @@ import Search from './components/Search'
 import Spinner from './components/Spinner'
 import MovieCard from './components/MovieCard';
 import { useDebounce } from 'react-use';
+import { updateSearchCount } from './appwrite.js';
 
 //API - Application Programming Interface - a set of rules that allows one software
 //application to talk to another
@@ -18,7 +19,6 @@ const API_OPTIONS = {
     Authorization: `Bearer ${API_KEY}`
   }
 }
-
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -56,6 +56,10 @@ const App = () => {
       }
 
       setMovieList(data.results || []);
+
+      if(query && data.results.length > 0){
+        await updateSearchCount(query, data.results[0]);
+      }
 
     } catch (error) {
       console.error(`Error fetching movies: ${error}`);
